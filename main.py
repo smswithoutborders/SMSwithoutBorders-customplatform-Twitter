@@ -19,8 +19,8 @@ def main():
     if (len(result) > 1):
         status = api.update_status(result[0])
         for i in range(len(result)-1):
-            api.update_status('@{}{}'.format(status._json['user']['screen_name'], result[i+1]), '{}'.format(status._json['id']))
-            return
+            api.update_status('{}'.format(result[i+1]), '{}'.format(status._json['id']), True)
+        return
     else:
         api.update_status(result[0])
         return
