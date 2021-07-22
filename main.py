@@ -19,8 +19,7 @@ def post_tweet(tweet):
     if (len(split_tweets) > 1):
         status = api.update_status(split_tweets[0])
         for i in range(len(result)-1):
-            api.update_status('@{}{}'.format(status._json['user']['screen_name'], split_tweets[i+1]), '{}'.format(status._json['id']))
-            return
+            api.update_status('{}'.format(result[i+1]), '{}'.format(status._json['id']), True)
     else:
         api.update_status(split_tweets[0])
         return
