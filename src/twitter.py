@@ -34,6 +34,7 @@ def post_tweet(access_token, tweet):
 
             tweet_id = None
             # iterate over the chunks 
+            print("\nSending tweet ...")
             for x, chunk in zip(range(len(tweet_chunks)), tweet_chunks):
                 if x == 0:
                     # send first tweet and get the tweet_id
@@ -44,6 +45,7 @@ def post_tweet(access_token, tweet):
                     n_tweet = client.create_tweet(text=chunk, in_reply_to_tweet_id=tweet_id, user_auth=False)
                     tweet_id = n_tweet.data["id"]
 
+            print("\nSent")
             return True
                 
     except tweepy.TweepyException as error:
@@ -57,13 +59,13 @@ def post_tweet(access_token, tweet):
 def execute(protocol, body, userDetails):
     print(userDetails)
 
-    access_token = userDetails['token']['accessToken']
+    access_token = userDetails['access_token']
     print(f"access token = {access_token}")
 
     return post_tweet(access_token=access_token, tweet=body)
 
 if __name__ == "__main__":
-    # From SMSWithoutBorders-Backend
+    # Place token object here 
     token = {}
 
     #post_tweet("Hello world"*300)

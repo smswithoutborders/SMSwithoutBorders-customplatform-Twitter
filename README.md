@@ -30,5 +30,33 @@ python -m pip install -r requirements.txt
 ### Run script
 
 ```bash
-python3 twitter.py
+python3 src/twitter.py
+```
+
+### Test
+
+Test scripts are found in the dir `test/`.
+
+The test attempts to acquire your token and stores in the path:
+
+`test/token.json`
+
+To run the test, you will need your credentials.json which shoudl look like
+
+```json
+{
+  "client_id": "",
+  "client_secret": "",
+  "redirect_uri": ""
+}
+```
+
+Place the credentials file in the test/ directory (make sure the file is called credentials.json).
+
+Be sure to have the `redirect_uri` added to list of redirect origins in your twitter developers portal.
+
+To run the test and acquire the token file only.
+
+```bash
+python3 test/get_token.py
 ```
