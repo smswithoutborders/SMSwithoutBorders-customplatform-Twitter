@@ -41,13 +41,13 @@ The test attempts to acquire your token and stores in the path:
 
 `test/token.json`
 
-To run the test, you will need your credentials.json which shoudl look like
+To run the test, you will need your credentials.json which should look like
 
 ```json
 {
   "client_id": "",
   "client_secret": "",
-  "redirect_uri": ""
+  "redirect_uri": "https://localhost:9000/callback"
 }
 ```
 
