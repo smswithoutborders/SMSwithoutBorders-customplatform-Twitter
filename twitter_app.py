@@ -36,6 +36,8 @@ class Twitter:
         try:
             url, code_verifier, _ = self.twitter.get_oauth2_authorize_url()
 
+            logger.info("- Successfully fetched init url and code_verifier")
+
             return {"url":url, "code_verifier": code_verifier}
 
         except Exception as error:
@@ -53,6 +55,8 @@ class Twitter:
             api = Api(bearer_token=access_token["access_token"])
 
             profile = api.get_me(return_json=True)
+
+            logger.info("- Successfully fetched token and profile")
 
             return {
                 "profile": profile["data"],
@@ -78,6 +82,8 @@ class Twitter:
                 token=token["access_token"],
                 token_type_hint="access_token",
             )
+
+            logger.info("- Successfully revoked access")
             
             return result.json()
         except Exception as error:
@@ -94,6 +100,8 @@ class Twitter:
                 url=token_url,
                 refresh_token=token["refresh_token"],
             )
+
+            logger.info("- Successfully refreshed token")
             
             return refreshed_token
         except Exception as error:
