@@ -56,17 +56,21 @@ class Twitter:
 
             return {
                 "profile": profile["data"],
-                "token": access_token
+                "token": json.dumps(access_token)
             }
 
         except Exception as error:
             logger.error('Twitter-OAuth2-validate failed. See logs below')
             raise error
 
-    def revoke(self, token: dict) -> None:
+    def revoke(self, token: str) -> dict:
         """
         """
         try:
+            token = json.loads(token)
+
+            token = self.refresh(token=token)
+
             revoke_url = "https://api.twitter.com/2/oauth2/revoke"
             oauth2_session = self.twitter._get_oauth2_session()
             result = oauth2_session.revoke_token(
@@ -80,7 +84,7 @@ class Twitter:
             logger.error('Twitter-OAuth2-revoke failed. See logs below')
             raise error
 
-    def refresh(self, token: dict) -> None:
+    def refresh(self, token: dict) -> dict:
         """
         """
         try:
