@@ -2,7 +2,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 from pytwitter import Api
-from pytwitter import PyTwitterError
 
 import json
 import os
@@ -56,8 +55,8 @@ class Twitter:
             profile = api.get_me(return_json=True)
 
             return {
-                "profile": json.dumps(profile),
-                "token": json.dumps(access_token)
+                "profile": profile["data"],
+                "token": access_token
             }
 
         except Exception as error:
@@ -92,7 +91,7 @@ class Twitter:
                 refresh_token=token["refresh_token"],
             )
             
-            return json.dumps(refreshed_token)
+            return refreshed_token
         except Exception as error:
             logger.error('Twitter-OAuth2-refresh failed. See logs below')
             raise error
