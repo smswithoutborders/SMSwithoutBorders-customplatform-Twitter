@@ -24,7 +24,7 @@ class Twitter:
         self.originalUrl=originalUrl
         self.twitter=Api(
                 client_id=self.credentials["client_id"],
-                callback_uri=f'{self.originalUrl}platforms/twitter/protocols/oauth2/redirect_codes/',
+                callback_uri=f'{self.originalUrl}/platforms/twitter/protocols/oauth2/redirect_codes/',
                 scopes=self.scope,
                 client_secret=self.credentials["client_secret"],
                 oauth_flow=True
@@ -48,7 +48,7 @@ class Twitter:
         """
         """
         try:
-            resp_url = f'https://localhost:9000/platforms/twitter/protocols/oauth2/redirect_codes/?state=&code={code}'
+            resp_url = f'https://localhost:18000/platforms/twitter/protocols/oauth2/redirect_codes/?state=&code={code}'
 
             access_token = self.twitter.generate_oauth2_access_token(resp_url, code_verifier)
 
@@ -71,15 +71,15 @@ class Twitter:
         """
         """
         try:
-            token = json.loads(token)
+            grant = json.loads(token)
 
-            token = self.refresh(token=token)
+            r_token = self.refresh(token=grant)
 
             revoke_url = "https://api.twitter.com/2/oauth2/revoke"
             oauth2_session = self.twitter._get_oauth2_session()
             result = oauth2_session.revoke_token(
                 url=revoke_url,
-                token=token["access_token"],
+                token=r_token["access_token"],
                 token_type_hint="access_token",
             )
 
