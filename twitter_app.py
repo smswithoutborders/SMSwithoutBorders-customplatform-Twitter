@@ -71,9 +71,7 @@ class Twitter:
         """
         """
         try:
-            grant = json.loads(token)
-
-            r_token = self.refresh(token=grant)
+            r_token = self.refresh(token=token)
 
             revoke_url = "https://api.twitter.com/2/oauth2/revoke"
             oauth2_session = self.twitter._get_oauth2_session()
