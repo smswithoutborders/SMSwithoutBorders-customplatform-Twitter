@@ -67,7 +67,7 @@ class Twitter:
             logger.error('Twitter-OAuth2-validate failed. See logs below')
             raise error
 
-    def revoke(self, token: str) -> dict:
+    def revoke(self, token: dict) -> dict:
         """
         """
         try:
