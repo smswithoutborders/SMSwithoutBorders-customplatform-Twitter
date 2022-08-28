@@ -48,7 +48,7 @@ class Twitter:
         """
         """
         try:
-            resp_url = f'https://localhost:18000/platforms/twitter/protocols/oauth2/redirect_codes/?state=&code={code}'
+            resp_url = f'{self.originalUrl}/platforms/twitter/protocols/oauth2/redirect_codes/?state=&code={code}'
 
             access_token = self.twitter.generate_oauth2_access_token(resp_url, code_verifier)
 
