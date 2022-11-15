@@ -15,22 +15,22 @@ if not os.path.exists(credentials_path):
 c = open(credentials_path)
 creds = json.load(c)
 
-class Twitter:
-    def __init__(self, originalUrl: str) -> None:
+class Methods:
+    def __init__(self, origin: str) -> None:
         """
         """
         self.credentials = creds
         self.scope=["tweet.write", "users.read", "tweet.read", "offline.access"]
-        self.originalUrl=originalUrl
+        self.origin=origin
         self.twitter=Api(
                 client_id=self.credentials["client_id"],
-                callback_uri=f'{self.originalUrl}/platforms/twitter/protocols/oauth2/redirect_codes/',
+                callback_uri=f'{self.origin}/platforms/twitter/protocols/oauth2/redirect_codes/',
                 scopes=self.scope,
                 client_secret=self.credentials["client_secret"],
                 oauth_flow=True
             )
 
-    def init(self) -> str:
+    def authorize(self) -> str:
         """
         """
         try:
@@ -48,7 +48,7 @@ class Twitter:
         """
         """
         try:
-            resp_url = f'{self.originalUrl}/platforms/twitter/protocols/oauth2/redirect_codes/?state=&code={code}'
+            resp_url = f'{self.origin}/platforms/twitter/protocols/oauth2/redirect_codes/?state=&code={code}'
 
             access_token = self.twitter.generate_oauth2_access_token(resp_url, code_verifier)
 
@@ -67,7 +67,7 @@ class Twitter:
             logger.error('Twitter-OAuth2-validate failed. See logs below')
             raise error
 
-    def revoke(self, token: dict) -> dict:
+    def invalidate(self, token: dict) -> dict:
         """
         """
         try:
